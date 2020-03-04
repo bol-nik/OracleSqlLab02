@@ -1,0 +1,52 @@
+1.Прибавить к дате ENDDATE 4 месяца, отнять из даты ENDDATE 3 месяца.
+select task, add_months(enddate,4),add_months(enddate,-3) from project
+
+2. Определить названия задач, продолжительность которых больше двух месяцев.
+Select task,startdate,enddate,trunc(months_between(enddate,startdate)) Between_months
+from Project where trunc(months_between(enddate,startdate))>2;
+
+3. Переместить сроки окончания задач, продолжительность которых меньше месяца, на последний день месяца.
+select task,startdate,enddate,trunc(months_between(enddate,startdate))m_between, last_day(enddate) 
+from project where trunc(months_between(enddate,startdate))<1;
+
+select task,startdate,enddate,
+case 
+when trunc(months_between(enddate,startdate))<1 then last_day(enddate)
+else enddate
+end lastday
+from project;
+
+4. Переместить сроки окончания выполнения задач на десять дней вперед.
+select task,startdate,enddate,enddate+10 from project
+
+5. Вычислить продолжительность (в месяцах)  каждой задачи проекта.
+select task,startdate,enddate,trunc(months_between(enddate,startdate))duration from project
+
+6. Вывести названия задач, которые начинаются до 19 мая 2000г.
+select task,startdate,enddate from project where startdate<'05/19/2000'
+
+7.Перевести начало выполнения каждой задачи на пятницу.
+select task,next_day(startdate,6) from project
+
+8. Преобразовать тип данных значений столбца p_id таблицы PRODUCT в символьный.
+select to_char(p_id) from product
+
+9. Вычислить сумму всех значений двух столбцов.
+select sum(character),sum(numb) from test
+
+10. Определить имя пользователя.
+select user from dual
+
+11. Определить наименьшее значение из списка значений (3, 4,23,6,1,5,7).
+select least(3, 4,23,6,1,5,7)least,greatest(3, 4,23,6,1,5,7)greatest from dual
+
+12. Определить из списка значений (mama, mouse, skype, hi) слово, начальная буква которого ближе всех остальных к концу алфавита.
+13. Определить из списка значений (mama, mouse, skype, hi) слово, начальная буква которого ближе всех остальных к началу алфавита.
+select least('mama', 'mouse', 'skype', 'hi')least,greatest('mama', 'mouse', 'skype', 'hi')greatest from dual
+
+14. Определить, сколько дней осталось до Рождества.
+select to_date('2019-12-25', 'yyyy-mm-dd')-trunc(sysdate+3/24) from dual
+
+15. Определить, какой день недели будет послезавтра.
+select to_char(sysdate+3/24+2,'dd Month yyyy - Day') from dual
+
